@@ -6,25 +6,23 @@ on:
     branches: [main]
 jobs:
   test:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-        go: ["stable"]
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
-          go-version: ${{ matrix.go }}
-      - name: Cache drivers
+          go-version: stable
+      - name: Cache driver and browsers
         uses: actions/cache@v4
         with:
           path: |
-            ~/.cache/patchright-go
-            ~/Library/Caches/patchright-go
             ~\AppData\Local\patchright-go
-          key: ${{ runner.os }}-patchright-${{ hashFiles('**/run.go') }}
-      - run: go test ./...
+            ~\AppData\Local\ms-playwright
+          key: windows-patchright-${{ hashFiles('**/run.go') }}
+      - name: Install Chromium
+        run: go run ./cmd/patchright install chromium
+      - name: Test
+        run: go test -timeout 30m ./...
         env:
           BROWSER: chromium
