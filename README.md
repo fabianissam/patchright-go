@@ -1,337 +1,131 @@
-<h1 align="center">
-    🎭 Patchright Python
-</h1>
+# Patchright Go
 
+Undetected Go version of the Playwright testing and automation library.
 
-<p align="center">
-    <a href="https://github.com/Kaliiiiiiiiii-Vinyzu/patchright-python/blob/main/LICENSE">
-        <img src="https://img.shields.io/badge/License-Apache%202.0-green">
-    </a>
-    <a>
-        <img src="https://img.shields.io/badge/Based%20on-Playwright-goldenrod">
-    </a>
-    <a>
-        <img src="https://img.shields.io/badge/Driver-Patched-blue">
-    </a>
-    <a href="https://github.com/Kaliiiiiiiiii-Vinyzu/patchright-python/actions/workflows/patchright_tests.yml">
-        <img src="https://github.com/Kaliiiiiiiiii-Vinyzu/patchright-python/actions/workflows/patchright_tests.yml/badge.svg">
-    </a>
-    <br/>
-    <a href="https://pypi.org/project/patchright/">
-        <img alt="Patchright Version" src="https://img.shields.io/pypi/v/patchright?label=Version">
-    </a>
-    <a href="https://github.com/Kaliiiiiiiiii-Vinyzu/patchright-python">
-        <img src="https://img.shields.io/badge/Package-Python-seagreen">
-    </a>
-    <a href="https://pypi.org/project/patchright/">
-        <img alt="PyPI Downloads" src="https://img.shields.io/pepy/dt/patchright?color=red">
-    </a>
-</p>
+Patchright is a patched Playwright: this module is a drop-in replacement for
+[`playwright-go`](https://github.com/playwright-community/playwright-go) that
+talks to [`patchright-core`](https://www.npmjs.com/package/patchright-core)
+instead of `playwright-core`.
 
-#### Patchright is a patched and undetected version of the Playwright Testing and Automation Framework. </br> It can be used as a drop-in replacement for Playwright.
+This repository is a Go port of
+[Kaliiiiiiiiii-Vinyzu/patchright-python](https://github.com/Kaliiiiiiiiii-Vinyzu/patchright-python).
+The client API is forked from playwright-go; the stealth patches match the
+Python package (`patch_python_package.py`) and the patched driver.
 
-> [!NOTE]  
-> This repository serves the Patchright-Python Package. To use Patchright with NodeJS, check out the [NodeJS Package](https://github.com/Kaliiiiiiiiii-Vinyzu/patchright-nodejs).
-> Also check out the main [Patchright Driver Repository](https://github.com/Kaliiiiiiiiii-Vinyzu/patchright)
+> Patchright only patches Chromium-based browsers. Firefox and WebKit are not supported.
 
----
-
-<details open id="sponsors">
-    <summary><h3>Sponsors</h1></summary>
-
-<sup>Want to Sponsor this Project? Contact [@vinyzu](https://discordapp.com/users/935224495126487150) on Discord!</sup>
-
-[<img width="60%" alt="NodeMaven Banner" src="https://github.com/user-attachments/assets/feecc63e-f564-40f6-b157-aa6b7542d223" />](https://go.nodemaven.com/Vinyzuoctober)
-</br>
-#### [NodeMaven](https://go.nodemaven.com/Vinyzuoctober): Your efficient proxy provider for Web Scraping and Automation with High Quality IPs. 
-
-Why [NodeMaven](https://go.nodemaven.com/Vinyzuoctober)?
-
-🎯 ZIP targeting
-</br>
-✅ 99.9% Uptime
-</br>
-🔍 IP Filtering: Proxies are guaranteed to have fraud score <97%
-</br>
-🔰 No KYC required
-</br>
-🎉 Unique free tools: Proxy Bandwidth Checker, Meta Tag Checker, IP Lookup and others!
-
-**Special codes** for Patchright users:
-</br>
-🔥 **PATCHRIGHT35** - **35% off** to Mobile and Residential Proxies
-</br>
-🔥 **PATCHRIGHT40** - **40% off** to ISP (Static) Proxies
-</br>
-🔥🔥 **PATCHRIGHT** - 2X traffic for Black Friday
-
-<sup>Choose quality and stability with [NodeMaven](https://go.nodemaven.com/Vinyzuoctober).</sup>
-</br>
-<sup>Check Nodemaven's new GitHub for more web scraping and automation solutions - https://github.com/nodemaven</sup>
-
----
-
-[<img height="100" alt="swiftproxy banner" src="https://github.com/user-attachments/assets/123ac558-f99f-4c59-b826-b86822f2c92a" />](https://www.swiftproxy.net/?ref=Vinyzu)
-
-#### [Swiftproxy](https://www.swiftproxy.net/?ref=Vinyzu): High-Performance Residential Proxies for Scalable Data Collection
-
-Built for developers who need **reliable**, anti-detection proxy infrastructure. [Swiftproxy](https://www.swiftproxy.net/?ref=Vinyzu) delivers **stable connections**, **high success rates**, and flexible control for **large-scale scraping and automation**.
-
-- 🌍 195+ locations with ethically sourced residential IPs
-- 🔄 **Rotating** & **sticky sessions** with precise geo-targeting
-- ⚡ Optimized for **anti-ban** & **high success rate**
-- 🔌 HTTP / HTTPS / SOCKS5 support
-- 🧪 **Free 500MB trial** for testing
-- 💸 **Special discount** code for Patchright users: **PROXY90 - 10%**
-
-<sup> Best for: Web scraping, automation, multi-accounting, and large-scale data extraction </sup>
-
----
-
-[<img height="90" alt="rapidproxy banner" src="https://github.com/user-attachments/assets/bb771788-5c99-4e22-be40-c99cca95db22" />](https://www.rapidproxy.io/?ref=Vinyzu)
-
-
-#### [RapidProxy](https://www.rapidproxy.io/?ref=Vinyzu) provides a stable and high-performance proxy network built for large-scale data operations.
-
-[RapidProxy](https://www.rapidproxy.io/?ref=Vinyzu) delivers:
-- 🌍 90M+ Residential IPs (200+ locations)
-- 🔄 **Rotating Residential Proxies** — from **$0.65/GB** (non-expiring traffic)
-- 🧩 **Static Residential IPs** — **$5/IP** (30 days, unlimited traffic)
-- 🎯 Precise geo-targeting
-- ⚡ **Free Trial Available** — test proxy performance risk-free
-- Built for scraping, automation, and high-performance data workflows.
-- 🔥 Special Offer: Use code **RAPID10** to get **10% off**
-
-<sup> Start fast. Scale globally. Stay stable with [RapidProxy](https://www.rapidproxy.io/?ref=Vinyzu). </sup>
-
----
-
-<div align="center">
-
-<img src="https://scrappey.com/logo.png" width="56" alt="Scrappey">
-
-### Sponsored by [Scrappey](https://scrappey.com?utm_source=patchright-python&utm_medium=github&utm_campaign=repo_readme)
-
-</div>
-
-Getting the browser past detection is one problem. Keeping proxies rotating, fingerprints
-current and sessions alive across a few million requests is a different one. **Scrappey**
-takes the second problem: one endpoint, solved pages back.
-
-- **Clearcote** — our own patched Chromium, maintained in-house, not a stock build
-- **Several engines behind one endpoint** — blocked on one stack, routed to another
-- **Click, type, wait and scroll** over the API — a real session, not a fetch proxy
-- **Residential and datacenter proxies** included, or bring your own
-- **Per request**, no monthly minimum
+## Install
 
 ```bash
-curl -X POST "https://publisher.scrappey.com/api/v1?key=YOUR_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"cmd": "request.get", "url": "https://example.com"}'
+go get github.com/fabianissam/patchright-go
 ```
 
-Get 10% off with code `PATCHRIGHT`
-
-[Documentation](https://scrappey.com/docs?utm_source=patchright-python&utm_medium=github&utm_campaign=repo_readme) · [Discord](https://scrappey.com/discord?utm_source=patchright-python&utm_medium=github&utm_campaign=repo_readme) · [Get an API key](https://scrappey.com?utm_source=patchright-python&utm_medium=github&utm_campaign=repo_readme)
-
-</details>
-
----
-
-## Install it from PyPI
+Install the patched driver and Chromium (or skip this and launch installed Chrome with `Channel: "chrome"`):
 
 ```bash
-# Install Patchright with Pip from PyPI
-pip install patchright
+go run github.com/fabianissam/patchright-go/cmd/patchright@latest install chromium
 ```
 
-```bash
-# Install Chromium-Driver for Patchright
-patchright install chromium
-```
-
----
+The driver is also downloaded automatically on the first `playwright.Run()`.
 
 ## Usage
-#### Just change the import and use it like playwright. Patchright is a drop-in-replacement for Playwright!
 
-> [!IMPORTANT]  
-> Patchright only patches CHROMIUM based browsers. Firefox and Webkit are not supported.
+Change the import. The package name stays `playwright`, so existing
+playwright-go code keeps working.
 
-```py
-# patchright here!
-from patchright.sync_api import sync_playwright
+```go
+package main
 
-with sync_playwright() as p:
-    browser = p.chromium.launch()
-    page = browser.new_page()
-    page.goto('http://playwright.dev')
-    page.screenshot(path=f'example-{p.chromium.name}.png')
-    browser.close()
-```
+import (
+	"log"
 
-```py
-import asyncio
-# patchright here!
-from patchright.async_api import async_playwright
-
-async def main():
-    async with async_playwright() as p:
-        browser = await p.chromium.launch()
-        page = await browser.new_page()
-        await page.goto('http://playwright.dev')
-        await page.screenshot(path=f'example-{p.chromium.name}.png')
-        await browser.close()
-
-asyncio.run(main())
-```
-
-### Best Practice  - use Chrome without Fingerprint Injection
-
-To be completely undetected, use the following configuration:
-```py
-playwright.chromium.launch_persistent_context(
-    user_data_dir="...",
-    channel="chrome",
-    headless=False,
-    no_viewport=True,
-    # do NOT add custom browser headers or user_agent
-    ...
+	playwright "github.com/fabianissam/patchright-go"
 )
+
+func main() {
+	pw, err := playwright.Run()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer pw.Stop()
+
+	browser, err := pw.Chromium.Launch()
+	if err != nil {
+		log.Fatal(err)
+	}
+	page, err := browser.NewPage()
+	if err != nil {
+		log.Fatal(err)
+	}
+	if _, err = page.Goto("https://playwright.dev"); err != nil {
+		log.Fatal(err)
+	}
+	if _, err = page.Screenshot(playwright.PageScreenshotOptions{
+		Path: playwright.String("example.png"),
+	}); err != nil {
+		log.Fatal(err)
+	}
+	_ = browser.Close()
+}
 ```
 
-> [!NOTE]  
-> We recommend using Google Chrome instead of Chromium.
-> You can install it via `patchright install chrome` (or via any other installation method) and use it with `channel="chrome"`.
+### Best practice — Chrome without fingerprint injection
 
----
+```go
+userDataDir := "./chrome-profile"
+ctx, err := pw.Chromium.LaunchPersistentContext(userDataDir, playwright.BrowserTypeLaunchPersistentContextOptions{
+	Channel:    playwright.String("chrome"),
+	Headless:   playwright.Bool(false),
+	NoViewport: playwright.Bool(true),
+	// do NOT add custom browser headers or user_agent
+})
+```
+
+Install Chrome with `go run github.com/fabianissam/patchright-go/cmd/patchright@latest install chrome`.
+
+## As a Go CLI dependency
+
+```go
+import playwright "github.com/fabianissam/patchright-go"
+
+pw, err := playwright.Run()
+if err != nil {
+	return err
+}
+defer pw.Stop()
+```
+
+`Run()` provisions the patched driver into the user cache
+(`%LOCALAPPDATA%/patchright-go/<version>` on Windows). Point CLIs at an
+installed Chrome via `Channel: "chrome"` if you do not want to download Chromium.
 
 ## Patches
 
-### [Runtime.enable](https://vanilla.aslushnikov.com/?Runtime.enable) Leak
-This is the biggest Patch Patchright uses. To avoid detection by this leak, patchright avoids using [Runtime.enable](https://vanilla.aslushnikov.com/?Runtime.enable) by executing Javascript in (isolated) ExecutionContexts.
+Same client-side patches as patchright-python:
 
-### [Console.enable](https://vanilla.aslushnikov.com/?Console.enable) Leak
-Patchright patches this leak by disabling the Console API all together. This means, console functionality will not work in Patchright. If you really need the console, you might be better off using Javascript loggers, although they also can be easily detected.
+- **Runtime.enable leak** — evaluate runs in an isolated execution context by default (`isolatedContext: true`). Opt out with `playwright.EvaluateOptions{IsolatedContext: playwright.Bool(false)}`.
+- **Console.enable leak** — handled in the patched driver (console APIs are disabled).
+- **Command-flag leaks** — handled in the patched driver (`--enable-automation` removed, `--disable-blink-features=AutomationControlled` added, and so on).
+- **Init-script injection** — `AddInitScript` / `ExposeBinding` / clock / tracing install a document route that sets `patchrightInitScript` so the driver can inject scripts without `Runtime.enable`.
+- **sourceURL leak** — file-based scripts are not annotated with `//# sourceURL=...`.
+- **Closed shadow roots** — handled in the patched driver.
 
-### Command Flags Leaks
-Patchright tweaks the Playwright Default Args to avoid detection by Command Flag Leaks. This (most importantly) affects:
-- `--disable-blink-features=AutomationControlled` (added) to avoid navigator.webdriver detection.
-- `--enable-automation` (removed) to avoid navigator.webdriver detection.
-- `--disable-popup-blocking` (removed) to avoid popup crashing.
-- `--disable-component-update` (removed) to avoid detection as a Stealth Driver.
-- `--disable-default-apps` (removed) to enable default apps.
-- `--disable-extensions` (removed) to enable extensions
+## Extended API
 
-### General Leaks
-Patchright patches some general leaks in the Playwright codebase. This mainly includes poor setups and obvious detection points.
+```go
+page.Evaluate("() => window.chrome", playwright.EvaluateOptions{
+	IsolatedContext: playwright.Bool(true), // default
+})
 
-### Closed Shadow Roots
-Patchright is able to interact with elements in Closed Shadow Roots. Just use normal locators and Patchright will do the rest.
-<br/>
-Patchright is now also able to use XPaths in Closed Shadow Roots.
-
----
-
-## Stealth
-
-With the right setup, Patchright currently is considered undetectable.
-Patchright passes:
-- [Brotector](https://kaliiiiiiiiii.github.io/brotector/) ✅ (with [CDP-Patches](https://github.com/Kaliiiiiiiiii-Vinyzu/CDP-Patches/))
-- [Cloudflare](https://cloudflare.com/) ✅
-- [Kasada](https://www.kasada.io/) ✅
-- [Akamai](https://www.akamai.com/products/bot-manager/) ✅
-- [Shape/F5](https://www.f5.com/) ✅
-- [Bet365](https://bet365.com/) ✅
-- [Datadome](https://datadome.co/products/bot-protection/) ✅
-- [Fingerprint.com](https://fingerprint.com/products/bot-detection/) ✅
-- [CreepJS](https://abrahamjuliot.github.io/creepjs/) ✅
-- [Sannysoft](https://bot.sannysoft.com/) ✅
-- [Incolumitas](https://bot.incolumitas.com/) ✅
-- [IPHey](https://iphey.com/) ✅
-- [Browserscan](https://browserscan.net/) ✅
-- [Pixelscan](https://pixelscan.net/) ✅
-
----
-
-## Documentation and API Reference
-See the original [Playwright Documentation](https://playwright.dev/python/docs/intro) and [API Reference](https://playwright.dev/python/docs/api/class-playwright)
-
-## Extended Patchright API
-#### **`evaluate`** Method <sub>([`Frame.evaluate`](https://playwright.dev/python/docs/api/class-frame#frame-evaluate), [`Page.evaluate`](https://playwright.dev/python/docs/api/class-page#page-evaluate),  [`Locator.evaluate`](https://playwright.dev/python/docs/api/class-locator#locator-evaluate),  [`Worker.evaluate`](https://playwright.dev/python/docs/api/class-worker#worker-evaluate), [`JSHandle.evaluate`](https://playwright.dev/python/docs/api/class-jshandle#js-handle-evaluate))</sub>
-- Added `isolated_context`  to choose Execution Context (Main/Isolated). `Bool` (*optional*, Defaults to `True`)
-```diff
-object.evaluate(
-    expression: str,
-    arg: typing.Optional[typing.Any] = None,
-    ...,
-+   isolated_context: typing.Optional[bool] = True
-)
+browser.NewContext(playwright.BrowserNewContextOptions{
+	FocusControl: playwright.Bool(false),
+})
 ```
 
-#### **`evaluate_handle`** Method <sub>([`Frame.evaluate_handle`](https://playwright.dev/python/docs/api/class-frame#frame-evaluate-handle), [`Page.evaluate_handle`](https://playwright.dev/python/docs/api/class-page#page-evaluate-handle), [`Locator.evaluate_handle`](https://playwright.dev/python/docs/api/class-locator#locator-evaluate-handle), [`Worker.evaluate_handle`](https://playwright.dev/python/docs/api/class-worker#worker-evaluate-handle), [`JSHandle.evaluate`](https://playwright.dev/python/docs/api/class-jshandle#js-handle-evaluate-handle))</sub>
-- Added `isolated_context`  to choose Execution Context (Main/Isolated). `Bool` (*optional*, Defaults to `True`)
-```diff
-object.evaluate_handle(
-    expression: str,
-    arg: typing.Optional[typing.Any] = None,
-    ...,
-+   isolated_context: typing.Optional[bool] = True
-)
-```
+See the original [Playwright documentation](https://playwright.dev/docs/intro) and the
+[playwright-go API](https://pkg.go.dev/github.com/playwright-community/playwright-go).
 
-#### **`evaluate_all`** Method <sub>([`Locator.evaluate_all`](https://playwright.dev/python/docs/next/api/class-locator#locator-evaluate-all))</sub>
-- Added `isolated_context`  to choose Execution Context (Main/Isolated). `Bool` (*optional*, Defaults to `True`)
-```diff
-Locator.evaluate_all(
-    expression: str,
-    arg: typing.Optional[typing.Any] = None,
-    ...,
-+   isolated_context: typing.Optional[bool] = True
-)
-```
+## License
 
-
----
-
-## Bugs
-#### The bugs are documented in the [Patchright Driver Repository](https://github.com/Kaliiiiiiiiii-Vinyzu/patchright#bugs).
-
----
-
-### TODO
-#### The TODO is documented in the [Patchright Driver Repository](https://github.com/Kaliiiiiiiiii-Vinyzu/patchright#todo).
-
-
----
-
-## Development
-
-Deployment of new Patchright versions are automatic, but bugs due to Playwright codebase changes may occur. Fixes for these bugs might take a few days to be released. 
-
----
-
-## Support our work
-
-If you choose to support our work, please contact [@vinyzu](https://discord.com/users/935224495126487150) or [@steve_abcdef](https://discord.com/users/936292409426477066) on Discord.
-
----
-
-## Copyright and License
-© [Vinyzu](https://github.com/Vinyzu/)
-
-Patchright is licensed [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/)
-
----
-
-## Disclaimer
-
-This repository is provided for **educational purposes only**. \
-No warranties are provided regarding accuracy, completeness, or suitability for any purpose. **Use at your own risk**—the authors and maintainers assume **no liability** for **any damages**, **legal issues**, or **warranty breaches** resulting from use, modification, or distribution of this code.\
-**Any misuse or legal violations are the sole responsibility of the user**. 
-
----
-
-## Authors
-
-#### Active Maintainer: [Vinyzu](https://github.com/Vinyzu/) </br> Co-Maintainer: [Kaliiiiiiiiii](https://github.com/kaliiiiiiiiii/)
+Apache-2.0, matching [patchright-python](https://github.com/Kaliiiiiiiiii-Vinyzu/patchright-python).
+The Go client is derived from [playwright-go](https://github.com/playwright-community/playwright-go) (MIT); see `LICENSE.playwright-go`.
