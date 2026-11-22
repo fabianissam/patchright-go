@@ -38,9 +38,11 @@ try {
     }
     git commit -m "Bump patchright-go on dev."
     git push -u origin chore/patchright-go --force
-    gh pr view --repo fabianissam/hazebuli_revived --base dev --head fabianissam:chore/patchright-go 2>$null
-    if ($LASTEXITCODE -ne 0) {
+    $existing = gh pr list --repo fabianissam/hazebuli_revived --base dev --head fabianissam:chore/patchright-go --json number --jq ".[0].number"
+    if (-not $existing) {
         gh pr create --repo fabianissam/hazebuli_revived --base dev --head chore/patchright-go --title "Bump patchright-go" --body "Automated bump of github.com/fabianissam/patchright-go onto the dev branch."
+    } else {
+        Write-Output "PR already open: #$existing"
     }
 } finally {
     Pop-Location

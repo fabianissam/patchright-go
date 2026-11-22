@@ -53,7 +53,11 @@ jobs:
           fi
           git commit -m "Bump patchright-go on dev."
           git push -u origin chore/patchright-go --force
-          GH_TOKEN="$HAZEBULI_TOKEN" gh pr view --repo fabianissam/hazebuli_revived --base dev --head fabianissam:chore/patchright-go >/dev/null 2>&1 || \
+          existing="$(GH_TOKEN="$HAZEBULI_TOKEN" gh pr list --repo fabianissam/hazebuli_revived --base dev --head fabianissam:chore/patchright-go --json number --jq '.[0].number')"
+          if [ -z "$existing" ]; then
             GH_TOKEN="$HAZEBULI_TOKEN" gh pr create --repo fabianissam/hazebuli_revived --base dev --head chore/patchright-go \
               --title "Bump patchright-go" \
               --body "Daily automated bump of github.com/fabianissam/patchright-go onto the dev branch."
+          else
+            echo "PR already open: #$existing"
+          fi
