@@ -1,0 +1,59 @@
+name: Sync patchright-python
+on:
+  schedule:
+    - cron: "0 5 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+      - name: Check upstream and apply Go updates
+        id: sync
+        run: go run ./scripts/sync-upstream -repo-root .
+      - name: Commit and push
+        if: steps.sync.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add run.go upstream
+          git diff --cached --quiet && exit 0
+          git commit -m "Sync patchright-python and apply Go driver/client updates."
+          git push
+      - name: Bump hazebuli_revived dev
+        if: steps.sync.outputs.changed == 'true'
+        env:
+          HAZEBULI_TOKEN: ${{ secrets.HAZEBULI_TOKEN }}
+        run: |
+          if [ -z "$HAZEBULI_TOKEN" ]; then
+            echo "HAZEBULI_TOKEN not set; skip hazebuli_revived PR"
+            exit 0
+          fi
+          git clone --depth 1 --branch dev "https://x-access-token:${HAZEBULI_TOKEN}@github.com/fabianissam/hazebuli_revived.git" hazebuli
+          cd hazebuli
+          git checkout -B chore/patchright-go
+          mkdir -p internal/patchrightpin
+          printf '%s\n' 'package patchrightpin' '' '// Pins github.com/fabianissam/patchright-go so go mod tidy keeps the daily bump.' 'import _ "github.com/fabianissam/patchright-go"' > internal/patchrightpin/pin.go
+          GOPROXY=direct go get github.com/fabianissam/patchright-go@main
+          go mod tidy
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add go.mod go.sum internal/patchrightpin
+          if git diff --cached --quiet; then
+            echo "hazebuli already on latest patchright-go"
+            exit 0
+          fi
+          git commit -m "Bump patchright-go on dev."
+          git push -u origin chore/patchright-go --force
+          GH_TOKEN="$HAZEBULI_TOKEN" gh pr view --repo fabianissam/hazebuli_revived --base dev --head fabianissam:chore/patchright-go >/dev/null 2>&1 || \
+            GH_TOKEN="$HAZEBULI_TOKEN" gh pr create --repo fabianissam/hazebuli_revived --base dev --head chore/patchright-go \
+              --title "Bump patchright-go" \
+              --body "Daily automated bump of github.com/fabianissam/patchright-go onto the dev branch."

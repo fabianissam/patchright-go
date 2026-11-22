@@ -125,6 +125,24 @@ browser.NewContext(playwright.BrowserNewContextOptions{
 See the original [Playwright documentation](https://playwright.dev/docs/intro) and the
 [playwright-go API](https://pkg.go.dev/github.com/playwright-community/playwright-go).
 
+## Daily upstream sync
+
+A GitHub Action runs every day at 05:00 UTC (`Sync patchright-python`):
+
+1. Checks [patchright-python](https://github.com/Kaliiiiiiiiii-Vinyzu/patchright-python) (`main` SHA + PyPI) and npm `patchright-core`.
+2. If `patchright-core` is newer, bumps `playwrightCliVersion` in `run.go` (the Go driver download).
+3. Snapshots `patch_python_package.py` into `upstream/`. If the Python patcher changed, writes `upstream/PENDING.md` so client-side AST patches can be ported.
+4. Pushes to `main`.
+5. If the repo secret `HAZEBULI_TOKEN` is set (a GitHub PAT that can write `fabianissam/hazebuli_revived`), opens or updates a PR against **`dev`** that runs `go get github.com/fabianissam/patchright-go@main`.
+
+Manual run: Actions → Sync patchright-python → Run workflow.
+
+Locally:
+
+```bash
+go run ./scripts/sync-upstream -repo-root .
+```
+
 ## License
 
 Apache-2.0, matching [patchright-python](https://github.com/Kaliiiiiiiiii-Vinyzu/patchright-python).
