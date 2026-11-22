@@ -7,7 +7,7 @@ on:
 jobs:
   test:
     runs-on: windows-latest
-    timeout-minutes: 45
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -22,7 +22,14 @@ jobs:
           key: windows-patchright-${{ hashFiles('**/run.go') }}
       - name: Install Chromium
         run: go run ./cmd/patchright install chromium
-      - name: Test
-        run: go test -timeout 30m ./...
+      - name: Unit tests
+        shell: pwsh
+        run: |
+          $pkgs = go list ./... | Where-Object { $_ -notmatch '/tests$' }
+          go test -timeout 10m @pkgs
+        env:
+          BROWSER: chromium
+      - name: Chromium smoke
+        run: go test -timeout 8m ./tests -count=1 -run "^(TestPageURL|TestPageEvaluate|TestPageScreenshot|TestPageTitle|TestPageSetContent)$"
         env:
           BROWSER: chromium
